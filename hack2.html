@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Security Dashboard</title>
+    <style>
+        * {
+            margin-top: 60px;
+        }
+    
+        body {background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK4FLWahU0T1nnoYqbYC3qv3LQINf5sOIweQ&s);
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .dashboard {
+            width: 80%;
+
+            
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px gray;
+            border-radius: 10px;
+        }
+        .status {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .alerts {
+            list-style: none;
+            padding: 0;
+        }
+        .alerts li {
+            padding: 10px;
+            background: #ffdddd;
+            margin: 5px 0;
+            border-left: 5px solid red;
+        }
+        .camera {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .arm { background: green; color: white; }
+        .disarm { background: red; color: white; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h2>Alerts Dashboard</h2>
+        <p class="status">Status: <strong id="system-status">Disarmed</strong></p>
+        <button class="arm" onclick="toggleSystem(true)">Arm System</button>
+        <button class="disarm" onclick="toggleSystem(false)">Disarm System</button>
+        
+        <h3>📢 Live Alerts</h3>
+        <ul class="alerts" id="alert-list">
+            <li>No alerts at the moment</li>
+        </ul>
+        
+        <h3>📷 Camera Feed</h3>
+        <div class="camera">
+            <img src="https://via.placeholder.com/400x250" alt="Camera Feed Placeholder">
+        </div>
+    </div>
+    
+    <script>
+        let isArmed = false;
+        function toggleSystem(armed) {
+            isArmed = armed;
+            document.getElementById('system-status').textContent = isArmed ? 'Armed' : 'Disarmed';
+            document.getElementById('system-status').style.color = isArmed ? 'green' : 'red';
+        }
+        
+        function addAlert(message) {
+            const alertList = document.getElementById('alert-list');
+            alertList.innerHTML = '';
+            const alertItem = document.createElement('li');
+            alertItem.textContent = message;
+            alertList.appendChild(alertItem);
+        }
+        
+        // Simulating alerts
+        setInterval(() => {
+            if (isArmed) {
+                addAlert("🚨 Motion detected at the front door!");
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
